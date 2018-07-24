@@ -6,16 +6,29 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
   entry: {
-    app: './src/index.js',
-    another: './src/another.js'
+    app: './src/index.js'
   },
+  module: {
+    rules: [
+      {
+        test: /\.js?$/,
+        include: path.resolve(__dirname, 'src'),
+        use: path.resolve('./test-loader.js'),
+        exclude: /node_modules/
+      }
+    ]
+  },
+  // resolve: {
+  //   extensions: [ '.tsx', '.ts', '.js' ]
+  // },  
   output: {
     filename: '[name].[chunkhash].js',
     path: path.resolve(__dirname, 'dist')
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Hot Module Replacement'
+      title: 'ts',
+      template: path.resolve('./index.html'),
     }),
     new CleanWebpackPlugin(['dist'])
   ]
