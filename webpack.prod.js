@@ -2,40 +2,10 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const baseConfig = require('./webpack.base.js');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = merge(baseConfig, {
-  // devtool: 'source-map',
-  optimization: {
-      splitChunks: {
-          cacheGroups: {
-              // commons: {
-              //     name: "commons",
-              //     chunks: "initial",
-              //     minChunks: 2
-              // },
-              vendor: {
-                name: 'vendor',
-                chunks: "all",
-                minChunks: 2
-              },
-              manifest: {
-                name: 'manifest',
-                minChunks: 2
-              }
-          }
-      }
-  },
+  mode: "production",
   plugins: [
-    // new webpack.optimize.CommonsChunkPlugin({
-    //   name: 'manifest'
-    // })
-    // new UglifyJSPlugin({
-    //   sourceMap: true
-    // }),
-    // new webpack.DefinePlugin({
-    //   'process.env.NODE_ENV': JSON.stringify('production')
-    // }),
-    // new webpack.optimize.CommonsChunkPlugin({
-    //   name: 'common'
-    // })
+  	new CleanWebpackPlugin(['dist'])
   ]
 })
